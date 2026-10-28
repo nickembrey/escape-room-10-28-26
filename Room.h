@@ -3,8 +3,6 @@
 #ifndef ROOM_H
 #define ROOM_H
 
-
-
 // The map has a wall of # characters all the way around its edge. More # characters are distributed around the inside of the map, and they act as walls too.
 
 // The @ starts on an open space. After each move, the program draws the whole map again with the @ in its new place.
@@ -15,21 +13,26 @@
 
 // The Room can draw itself, with the @ at the player's position.
 
+class Player;
+
+
+// TODO: A thing picked up from the map has its letter as its id.
 class Room {
     private:
-        // Player * player;
+        
 
 
         // What does a map look like?
+        Player * player;
         int width;
         int height;
         char ** map;
 
-        // 0x576873ABEF -> [#,#,#,#,#,#,#,#,#,#,#,#]
+        // 0x576873ABEF -> [#,#,#,#,#,#,#,#,#,#,#,#] the type of this would be: char *
         // 0x75873ABCDF -> [#, , , ,@, ,#, ,#, , ,#]
         // 0x758534BCDA -> [#, , , ,@, ,#, ,#, , ,#]
 
-        // 0x3525243893 -> [0x576873ABEF, 0x75873ABCDF, 0x758534BCDA]
+        // 0x3525243893 -> [0x576873ABEF, 0x75873ABCDF, 0x758534BCDA] char * * 
 
         // ######################
         // #                    #
@@ -43,9 +46,13 @@ class Room {
         // TODO: what type should the map be? probably some kind of array of type char, but we'll see
 
     public:
-        Room(int x, int y); // allocate the map
+
+        // TODO: placeItem leaves a thing on an open space, and takeItem takes the thing at a position off the map and returns its letter, or 0 if nothing is there.
+        Room(int x, int y, Player * player); // allocate the map
         ~Room(); // deallocate the map
         void draw();
+        // char tileAt(int x, int y); might consider this for later
+        bool canMove(int x, int y);
 };
 
 #endif

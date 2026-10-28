@@ -1,4 +1,5 @@
 #include <iostream>
+#include "Player.h"
 #include "Room.h"
 
 using namespace std;
@@ -8,19 +9,28 @@ int main() {
     
     // w moves up, a left, s down, and d right.
 
-    Room room(5,10);
+    Player player;
+    Room room(20,10, &player);
+    
 
-    room.draw();
+    bool isRunning = true;
 
-    // bool isRunning = true;
+    while(isRunning) { // main game loop
 
-    // while(isRunning) {
+        room.draw();
 
-    //     // take user input
-    //     // draw
+        char input;
+        cout << endl << endl << "Please use the wasd keys to move or press q to quit: ";
+        cin >> input;
 
-    //     // do game things
-    // }
+        if(input == 'q') {
+            isRunning = false;
+        } else {
+            player.move(input, &room);
+            // TODO: After each move, the program lists what the player is carrying, in the order they were picked up.
+        }
+
+    }
     
     return 0;
 }
